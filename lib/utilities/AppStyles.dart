@@ -35,6 +35,17 @@ class AppStyles{
         letterSpacing: .5),
   );
 
+  static TextStyle tableHeaderStyle = GoogleFonts.poppins(
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+  );
+
+  static TextStyle tableBodyStyle = GoogleFonts.poppins(
+    fontWeight: FontWeight.w600,
+    color: Colors.black54,
+    fontSize: 14,
+  );
+
   getTitleStyle({titleSize,titleColor,titleWeight}){
     return GoogleFonts.quicksand(
       textStyle: TextStyle(

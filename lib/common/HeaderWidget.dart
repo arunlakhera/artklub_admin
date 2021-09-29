@@ -1,12 +1,11 @@
-import 'package:artklub_admin/controller/MenuController.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppResponsive.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HeaderWidget extends StatefulWidget {
-  const HeaderWidget({Key? key}) : super(key: key);
+  HeaderWidget({Key? key, required this.title}) : super(key: key);
+  String title;
 
   @override
   _HeaderWidgetState createState() => _HeaderWidgetState();
@@ -19,17 +18,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
       padding: EdgeInsets.all(10),
       child: Row(
         children: [
-          if (!AppResponsive.isDesktop(context))
-            IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-              onPressed: Provider.of<MenuController>(context, listen: false)
-                  .controlMenu,
-            ),
           Text(
-            'Dashboard',
+            widget.title,
             style: AppStyles().getTitleStyle(
               titleWeight: FontWeight.bold,
               titleSize: 30,

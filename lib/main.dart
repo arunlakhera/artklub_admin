@@ -1,13 +1,21 @@
-import 'package:artklub_admin/controller/MenuController.dart';
-import 'package:artklub_admin/pages/LoginPage.dart';
-import 'package:artklub_admin/pages/RegisterPage.dart';
-import 'package:artklub_admin/utilities/AppStyles.dart';
-import 'package:flip_card/flip_card.dart';
+
+import 'package:artklub_admin/pages/adminusers/AdminUsersPage.dart';
+import 'package:artklub_admin/pages/batches/BatchesPage.dart';
+import 'package:artklub_admin/pages/coordinators/CoordinatorsPage.dart';
+import 'package:artklub_admin/pages/dashboard/DashboardPage.dart';
+import 'package:artklub_admin/pages/HomePage.dart';
+import 'package:artklub_admin/pages/SplashPage.dart';
+import 'package:artklub_admin/pages/notifications/NotificationsPage.dart';
+import 'package:artklub_admin/pages/payments/PaymentsPage.dart';
+import 'package:artklub_admin/pages/reports/ReportsPage.dart';
+import 'package:artklub_admin/pages/students/StudentsPage.dart';
+import 'package:artklub_admin/pages/teachers/TeachersPage.dart';
+import 'package:artklub_admin/pages/zones/ZonesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -15,55 +23,30 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MenuController(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Artklub Admin Dashboard',
-        theme: ThemeData(
-          primaryColor: Colors.black,
-        ),
-        home: MyHomePage(title: 'Artklub Admin Dashboard'),
-        builder: EasyLoading.init(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Artklub Admin Dashboard',
+      theme: ThemeData(
+        primaryColor: Colors.black,
       ),
-    );
-  }
-}
+      home: SplashPage(),
+      routes: {
+        HomePage.id:(context) => HomePage(title: 'Artklub Admin Dashboard'),
+        SplashPage.id:(context) => SplashPage(),
+        DashboardPage.id:(context) => DashboardPage(),
+        ZonesPage.id:(context) => ZonesPage(),
+        CoordinatorsPage.id:(context) => CoordinatorsPage(),
+        TeachersPage.id:(context) => TeachersPage(),
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+        BatchesPage.id:(context) => BatchesPage(),
+        StudentsPage.id:(context) => StudentsPage(),
+        PaymentsPage.id:(context) => PaymentsPage(),
+        NotificationsPage.id:(context) => NotificationsPage(),
+        ReportsPage.id:(context) => ReportsPage(),
+        AdminUsersPage.id:(context) => AdminUsersPage(),
 
-class _MyHomePageState extends State<MyHomePage> {
-
-  GlobalKey<FlipCardState> _flipCardKey = GlobalKey<FlipCardState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: Provider.of<MenuController>(context, listen: false).scaffoldKey,
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: AppStyles.titleStyleWhite,
-        ),
-      ),
-      body: Center(
-        child: Container(
-          height: 500,
-          width: 800,
-          child: FlipCard(
-            key: _flipCardKey,
-            flipOnTouch: false,
-            direction: FlipDirection.HORIZONTAL,
-            front: LoginPage(flipLoginKey: _flipCardKey),
-            back: RegisterPage(flipRegisterKey: _flipCardKey),
-          ),
-        ),
-      ),
+    },
+      builder: EasyLoading.init(),
     );
   }
 }

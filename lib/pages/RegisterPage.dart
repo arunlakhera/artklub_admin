@@ -1,11 +1,14 @@
+import 'package:artklub_admin/pages/dashboard/DashboardPage.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppResponsive.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:artklub_admin/utilities/AppWidgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({Key? key, required this.flipRegisterKey}) : super(key: key);
@@ -19,11 +22,18 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
 
+  CollectionReference users = FirebaseFirestore.instance.collection('admin');
+
   final _registerFormKey = GlobalKey<FormState>();
   late String _name,_phoneNumber,_emailId, _password;
 
   bool _obscureText = true;
   bool _isSubmitting = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
         SizedBox(height: 10),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.black,
+            primary: Colors.green,
             padding: EdgeInsets.only(left: 50,right: 50),
           ),
           onPressed: (){
@@ -155,7 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
         elevation: 5,
         borderRadius: BorderRadius.circular(10),
         child: TextFormField(
-          onSaved: (val) => _emailId = val!,
+          onSaved: (val) => _name = val!,
           validator: (val) => (val!.length < 2) ? "Please provide valid Name" : null,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
@@ -194,7 +204,7 @@ class _RegisterPageState extends State<RegisterPage> {
         elevation: 5,
         borderRadius: BorderRadius.circular(10),
         child: TextFormField(
-          onSaved: (val) => _emailId = val!,
+          onSaved: (val) => _phoneNumber = val!,
           validator: (val) => (val!.length < 10) ? "Please provide valid Phone Number" : null,
           keyboardType: TextInputType.phone,
           decoration: InputDecoration(
@@ -205,7 +215,7 @@ class _RegisterPageState extends State<RegisterPage> {
             hintText: 'Enter your Phone Number',
             hintStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.grey),
             prefixIcon: Icon(
-              Icons.mail,
+              Icons.phone,
               color: Colors.black,
             ),
             border: OutlineInputBorder(
@@ -273,6 +283,11 @@ class _RegisterPageState extends State<RegisterPage> {
         elevation: 5,
         borderRadius: BorderRadius.circular(10),
         child: TextFormField(
+
+          onSaved: (val) => _password = val!,
+          validator: (val) => val.toString().length < 7 ? "Password Is Too Short" : null,
+          obscureText: _obscureText,
+
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
@@ -301,6 +316,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
             suffixIcon: GestureDetector(
               onTap: () {
+                if(!mounted) return;
                 setState(() {
                   _obscureText = !_obscureText;
                 },);
@@ -310,9 +326,6 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
 
-          onSaved: (val) => _password = val!,
-          validator: (val) => val.toString().length < 7 ? "Password Is Too Short" : null,
-          obscureText: _obscureText,
 
         ),
       ),
@@ -322,7 +335,8 @@ class _RegisterPageState extends State<RegisterPage> {
   _buildCreateButton() {
     return GestureDetector(
       onTap: (){
-        !_isSubmitting ? _create() :
+        !_isSubmitting ?
+        _create():
         AppWidgets().showScaffoldMessage(context: context,msg: 'User is being created. Please wait!');
       },
       child: Container(
@@ -348,23 +362,99 @@ class _RegisterPageState extends State<RegisterPage> {
       _registerUser();
     } else {
       print("Form is Invalid");
+      _isSubmitting = false;
     }
   }
 
-  _registerUser(){
 
+  Future<void> _registerUser() async {
+
+    if(!mounted) return;
     setState(() {
       _isSubmitting = true;
       EasyLoading.show(status: 'Creating User...');
     });
 
-    print(_emailId);
-    print(_password);
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailId,
+          password: _password,
+      );
 
-    //TODO: Add Library and code for Load Processing
+      if(userCredential.user!.email != null){
 
-    //TODO: Add Library and code for Showing Dialog box
+        if(!mounted) return;
 
-    //TODO: Add Library for Firebase Processing
+        setState(() {
+          EasyLoading.dismiss();
+        });
+
+        print(userCredential);
+        print(userCredential.user!.uid);
+        print(userCredential.user!.email);
+        print(userCredential.user!.phoneNumber);
+
+        Navigator.pushNamed(context, DashboardPage.id);
+        // Navigator.push(context, MaterialPageRoute(builder: (context){
+        //   return DashboardPage();
+        // }));
+
+      }else{
+        if(!mounted) return;
+        setState(() {
+          EasyLoading.dismiss();
+        });
+
+        AppWidgets().showAlertErrorWithButton(
+          context: context,
+          errMessage: 'Could not register user. Please try again!',
+        );
+
+      }
+
+      _isSubmitting = false;
+
+    } on FirebaseAuthException catch (e) {
+
+      _isSubmitting = false;
+
+      if (e.code == 'weak-password') {
+        if(!mounted) return;
+        setState(() {
+          EasyLoading.dismiss();
+        });
+        print('The password provided is too weak.');
+
+        AppWidgets().showAlertErrorWithButton(
+          context: context,
+          errMessage: 'Please provide strong Password!',
+        );
+
+      } else if (e.code == 'email-already-in-use') {
+        if(!mounted) return;
+        setState(() {
+          EasyLoading.dismiss();
+        });
+        print('The account already exists for that email.');
+
+        AppWidgets().showAlertErrorWithButton(
+          context: context,
+          errMessage: 'The account already exists for that email.',
+        );
+      }
+    } catch (e) {
+      print(e);
+      if(!mounted) return;
+      setState(() {
+        EasyLoading.dismiss();
+      });
+      AppWidgets().showAlertErrorWithButton(
+        context: context,
+        errMessage: 'Error Occured. Please try again',
+      );
+    }
+
   }
+
+
 }

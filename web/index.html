@@ -35,6 +35,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
 
 <script type="module">
 
@@ -49,6 +50,7 @@
   };
 
   firebase.initializeApp(firebaseConfig);
+  const storage = getStorage(firebaseApp);
 
 </script>
 

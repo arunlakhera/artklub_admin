@@ -1,3 +1,5 @@
+
+import 'package:artklub_admin/pages/coordinators/widgets/EditCoordinatorCardWidget.dart';
 import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,6 +32,7 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
     _ascending = false;
     _sortColumnIndex = 0;
     _querySnapshot = _services.coordinator.snapshots();
+
     super.initState();
   }
 
@@ -46,6 +49,7 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                 controller: _firstController,
                 shrinkWrap: true,
                 children: [
+
                   Align(
                     alignment: Alignment.centerRight,
                     child: Container(
@@ -118,6 +122,12 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                               columns: [
                                 DataColumn(
                                   label: Text(
+                                    'Photo',
+                                    style: AppStyles.tableHeaderStyle,
+                                  ),
+                                ),
+                                DataColumn(
+                                  label: Text(
                                     'EMAIL ID',
                                     style: AppStyles.tableHeaderStyle,
                                   ),
@@ -166,7 +176,7 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                 ),
                                 DataColumn(
                                   label: Text(
-                                    'CREATED ON',
+                                    'ZONE',
                                     style: AppStyles.tableHeaderStyle,
                                   ),
                                   onSort: (columnIndex, ascending) {
@@ -175,11 +185,27 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                       _ascending = !_ascending!;
                                       ascending = _ascending!;
                                       _querySnapshot = _services.coordinator
-                                          .orderBy('createdOn', descending: ascending)
+                                          .orderBy('zone', descending: ascending)
                                           .snapshots();
-                                    },);
+                                    });
                                   },
                                 ),
+                                // DataColumn(
+                                //   label: Text(
+                                //     'CREATED ON',
+                                //     style: AppStyles.tableHeaderStyle,
+                                //   ),
+                                //   onSort: (columnIndex, ascending) {
+                                //     setState(() {
+                                //       _sortColumnIndex = 4;
+                                //       _ascending = !_ascending!;
+                                //       ascending = _ascending!;
+                                //       _querySnapshot = _services.coordinator
+                                //           .orderBy('createdOn', descending: ascending)
+                                //           .snapshots();
+                                //     },);
+                                //   },
+                                // ),
                                 DataColumn(
                                   label: Text(
                                     'STATUS',
@@ -187,7 +213,23 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                   ),
                                   onSort: (columnIndex, ascending) {
                                     setState(() {
-                                      _sortColumnIndex = 4;
+                                      _sortColumnIndex = 5;
+                                      _ascending = !_ascending!;
+                                      ascending = _ascending!;
+                                      _querySnapshot = _services.coordinator
+                                          .orderBy('active', descending: ascending)
+                                          .snapshots();
+                                    },);
+                                  },
+                                ),
+                                DataColumn(
+                                  label: Text(
+                                    'Action',
+                                    style: AppStyles.tableHeaderStyle,
+                                  ),
+                                  onSort: (columnIndex, ascending) {
+                                    setState(() {
+                                      _sortColumnIndex = 5;
                                       _ascending = !_ascending!;
                                       ascending = _ascending!;
                                       _querySnapshot = _services.coordinator
@@ -218,13 +260,30 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
   }
 
   DataRow _buildListItem(DocumentSnapshot data) {
+    
     String emailId = data.get('emailId');
     String name = data.get('name');
     String phoneNumber = data.get('phoneNumber');
+    String zone = data.get('zone');
     Timestamp createdOn = data.get('createdOn');
     bool active = data.get('active');
+    String userImageUrl = data.get('userImageUrl');
 
     return DataRow(cells: [
+      DataCell(
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: userImageUrl.isEmpty? Placeholder(fallbackWidth: 20, fallbackHeight: 20, strokeWidth: 1, color: Colors.yellow,)
+              :Image.network(userImageUrl,fit: BoxFit.fill,),
+        ),
+      ),
       DataCell(
         Text(
           emailId,
@@ -245,10 +304,16 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
       ),
       DataCell(
         Text(
-          '${createdOn.toDate().day}/${createdOn.toDate().month}/${createdOn.toDate().year}',
+          zone.isEmpty ? 'NA' : zone,
           style: AppStyles.tableBodyStyle,
         ),
       ),
+      // DataCell(
+      //   Text(
+      //     '${createdOn.toDate().day}/${createdOn.toDate().month}/${createdOn.toDate().year}',
+      //     style: AppStyles.tableBodyStyle,
+      //   ),
+      // ),
       DataCell(
         Container(
           width: 100,
@@ -269,8 +334,21 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
             ),
           ),
         ),
-        //Text(active? 'Yes' : 'No'),
       ),
+
+      DataCell(
+        IconButton(
+          icon: Icon(Icons.edit),
+          splashColor: Colors.green,
+          splashRadius: 20,
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context){
+              return EditCoordinatorCardWidget(emailId: emailId,);
+            }));
+          },
+        )
+      ),
+
     ]);
   }
 

@@ -367,7 +367,6 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
             type = 'c';
             _services.createAdminUser(_emailId, _password, type)
                 .whenComplete(() => _services.createCoordinator(_emailId, _password)).whenComplete(() => resetFields());
-            ;
           }else if(_dropDownValue == 'Zone Coordinator'){
             type = 'zc';
             _services.createAdminUser(_emailId, _password, type)

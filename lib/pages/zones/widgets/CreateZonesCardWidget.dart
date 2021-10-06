@@ -37,7 +37,7 @@ class _CreateZonesCardWidgetState extends State<CreateZonesCardWidget> {
     GlobalKey<CSCPickerState> _cscPickerKey = GlobalKey();
 
     return Container(
-      child: Column(
+      child: _isLoading? Center(child: CircularProgressIndicator(),) :Column(
         children: [
           Divider(thickness: 5,),
 

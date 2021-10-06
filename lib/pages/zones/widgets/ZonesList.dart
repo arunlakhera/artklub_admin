@@ -214,7 +214,7 @@ class _ZonesListState extends State<ZonesList> {
                               },
                             ),
                           ],
-                          rows: _adminUsersList(snapshot.data!.docs),
+                          rows: _zonesList(snapshot.data!.docs),
                         );
                       }),
                 ),
@@ -223,7 +223,7 @@ class _ZonesListState extends State<ZonesList> {
           );
   }
 
-  List<DataRow> _adminUsersList(List<DocumentSnapshot> snapshot) {
+  List<DataRow> _zonesList(List<DocumentSnapshot> snapshot) {
     return snapshot.map((data) => _buildListItem(data)).toList();
   }
 

@@ -12,11 +12,11 @@ class DashboardPage extends StatelessWidget {
 
   static const String id = 'dashboard-page';
 
-
   @override
   Widget build(BuildContext context) {
 
     SideBarWidget _sideBar = SideBarWidget();
+    final ScrollController _firstController = ScrollController();
 
     return AdminScaffold(
       backgroundColor: AppColors.colorBlack,
@@ -39,25 +39,58 @@ class DashboardPage extends StatelessWidget {
         ),
       ),
       sideBar: _sideBar.sideBarMenus(context, DashboardPage.id),
-      body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.topLeft,
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          padding: const EdgeInsets.all(10),
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            color: AppColors.colorBackground,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Column(
-            children: [
-              HeaderWidget(title: 'Dashboard',),
-              NotificationCardWidget(),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return SizedBox(
+            width: constraints.maxWidth,
+            child: Scrollbar(
+              controller: _firstController,
+              child: ListView(
+                controller: _firstController,
+                shrinkWrap: true,
+                children: [
+                Container(
+                    alignment: Alignment.topLeft,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.all(10),
+                    height: MediaQuery.of(context).size.height,
+                    decoration: BoxDecoration(
+                      color: AppColors.colorBackground,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      children: [
+                        HeaderWidget(title: 'Dashboard',),
+                        NotificationCardWidget(),
 
-            ],
-          ),
-        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
       )
+      // SingleChildScrollView(
+      //   child: Container(
+      //     alignment: Alignment.topLeft,
+      //     margin: const EdgeInsets.symmetric(horizontal: 10),
+      //     padding: const EdgeInsets.all(10),
+      //     height: MediaQuery.of(context).size.height,
+      //     decoration: BoxDecoration(
+      //       color: AppColors.colorBackground,
+      //       borderRadius: BorderRadius.circular(30),
+      //     ),
+      //     child: Column(
+      //       children: [
+      //         HeaderWidget(title: 'Dashboard',),
+      //         NotificationCardWidget(),
+      //
+      //       ],
+      //     ),
+      //   ),
+      // )
 
     );
   }

@@ -1,7 +1,9 @@
 import 'package:artklub_admin/common/HeaderWidget.dart';
+import 'package:artklub_admin/model/DroppedFile.dart';
 import 'package:artklub_admin/pages/coordinators/widgets/CoordinatorsList.dart';
 import 'package:artklub_admin/pages/coordinators/widgets/CreateCoordinatorCardWidget.dart';
 import 'package:artklub_admin/services/SideBarMenu.dart';
+import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:flutter/material.dart';

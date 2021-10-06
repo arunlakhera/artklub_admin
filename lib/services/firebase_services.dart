@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class FirebaseServices{
 
@@ -12,6 +13,7 @@ class FirebaseServices{
   CollectionReference _student = FirebaseFirestore.instance.collection('student');
   CollectionReference _batches = FirebaseFirestore.instance.collection('batches');
 
+  firebase_storage.FirebaseStorage storage = firebase_storage.FirebaseStorage.instance;
 
   // SAVE DB SECTION
   Future<void> createAdminUser(emailId, password, type) async{
@@ -166,14 +168,44 @@ class FirebaseServices{
 
   }
 
-
   // FETCH DB SECTION
   Future<DocumentSnapshot> getAdminCredentials(id){
     var result = admin.doc(id).get();
     return result;
   }
 
+  Future<DocumentSnapshot> getCoordinator(id){
+    var result = coordinator.doc(id).get();
+    return result;
+  }
 
+  // Upload image to storage
+  Future<String?> uploadCoordinatorImageToStorage({imageName, imagePath, zone}) async {
+
+    String? userImageUrl;
+    // dismiss loading message about image being saved
+
+    String fileType = (imageName!.mime).replaceAll('image/', '.');
+
+    final path = '$imagePath$zone$fileType';
+
+    await firebase_storage.FirebaseStorage.instance.ref()
+        .child(path)
+        .putData(imageName!.fileData)
+        .whenComplete(() async {
+
+      userImageUrl = await firebase_storage.FirebaseStorage.instance
+          .ref(path)
+          .getDownloadURL()
+          .whenComplete((){
+
+      });
+      print(userImageUrl);
+    });
+
+    return userImageUrl != null ? userImageUrl : 'NA';
+
+  }
 
   Future<void> logout(context) async {
     await FirebaseAuth.instance.signOut();

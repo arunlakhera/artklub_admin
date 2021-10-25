@@ -43,236 +43,243 @@ class _CreateZonesCardWidgetState extends State<CreateZonesCardWidget> {
 
           Visibility(
             visible: !_isVisible,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: AppColors.colorYellow,
-              ),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text.rich(
-                        TextSpan(
-                            style:TextStyle(fontSize: 16, color: Colors.black),
-                            children: [
+            child: Card(
+              elevation: 5,
+              color: AppColors.colorYellow,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.colorYellow,
+                ),
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                              style:TextStyle(fontSize: 16, color: Colors.black),
+                              children: [
 
-                              TextSpan(
-                                text: 'Create',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                TextSpan(
+                                  text: 'Create',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
 
-                              TextSpan(text: ' and '),
+                                TextSpan(text: ' and '),
 
-                              TextSpan(
-                                text: 'Manage',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                TextSpan(
+                                  text: 'Manage',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
 
-                              TextSpan(text: ' Zones.'),
+                                TextSpan(text: ' Zones.'),
 
-                            ]
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            _isVisible = !_isVisible;
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorButtonDarkBlue,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            'Create Zone',
-                            style: AppStyles().getTitleStyle(titleSize: 14, titleColor: AppColors.colorWhite, titleWeight: FontWeight.bold),
+                              ]
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  if(MediaQuery.of(context).size.width >= 615)...{
-                    Spacer(),
-                    Icon(
-                      Icons.location_pin,
-                      color: Colors.green,
-                      size: 120,
-                    )
-                  }
+                        SizedBox(height: 20,),
 
-                ],
+                        GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              _isVisible = !_isVisible;
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: AppColors.colorButtonDarkBlue,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              'Create Zone',
+                              style: AppStyles().getTitleStyle(titleSize: 14, titleColor: AppColors.colorWhite, titleWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if(MediaQuery.of(context).size.width >= 615)...{
+                      Spacer(),
+                      Icon(
+                        Icons.location_pin,
+                        color: Colors.green,
+                        size: 120,
+                      )
+                    }
+
+                  ],
+                ),
               ),
             ),
           ),
 
           Visibility(
             visible: _isVisible,
-            child: Container(
-              //height: 120,
-              decoration: BoxDecoration(
-                  color: AppColors.colorYellow,
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20,top: 10, bottom: 10),
-                  child: Form(
-                    key: _createZoneFormKey,
-                    child: Container(
-                      child: Row(
-                        children: [
+            child: Card(
+              elevation: 5,
+              color: AppColors.colorYellow,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: AppColors.colorYellow,
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20,top: 10, bottom: 10),
+                    child: Form(
+                      key: _createZoneFormKey,
+                      child: Container(
+                        child: Row(
+                          children: [
 
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: CSCPicker(
-                                    key: _cscPickerKey,
-                                    showStates: true,
-                                    showCities: true,
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Container(
+                                    child: CSCPicker(
+                                      key: _cscPickerKey,
+                                      showStates: true,
+                                      showCities: true,
 
-                                    currentCountry: countryValue,
-                                    currentState: stateValue,
-                                    currentCity: cityValue,
+                                      currentCountry: countryValue,
+                                      currentState: stateValue,
+                                      currentCity: cityValue,
 
-                                    countrySearchPlaceholder: "Country",
-                                    stateSearchPlaceholder: "State",
-                                    citySearchPlaceholder: "City",
+                                      countrySearchPlaceholder: "Country",
+                                      stateSearchPlaceholder: "State",
+                                      citySearchPlaceholder: "City",
 
-                                    ///labels for dropdown
-                                    countryDropdownLabel: "*Country",
-                                    stateDropdownLabel: "*State",
-                                    cityDropdownLabel: "*City",
+                                      ///labels for dropdown
+                                      countryDropdownLabel: "*Country",
+                                      stateDropdownLabel: "*State",
+                                      cityDropdownLabel: "*City",
 
-                                    dropdownDecoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(10),
+                                      dropdownDecoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(10),
+                                        ),
+                                        color: Colors.white,
+                                        border:
+                                        Border.all(color: Colors.grey.shade300, width: 1),
                                       ),
-                                      color: Colors.white,
-                                      border:
-                                      Border.all(color: Colors.grey.shade300, width: 1),
+
+                                      ///triggers once country selected in dropdown
+                                      onCountryChanged: (value) {
+                                        setState(() {
+                                          ///store value in country variable
+                                          countryValue = value;
+                                        });
+                                      },
+
+                                      ///triggers once state selected in dropdown
+                                      onStateChanged: (value) {
+                                        setState(() {
+                                          ///store value in state variable
+                                          stateValue = value!;
+                                        });
+                                      },
+
+                                      ///triggers once city selected in dropdown
+                                      onCityChanged: (value) {
+                                        setState(() {
+                                          ///store value in city variable
+                                          cityValue = value!;
+                                          zoneName = cityValue.replaceAll(' ', '_').toUpperCase();
+                                        });
+                                      },
                                     ),
-
-                                    ///triggers once country selected in dropdown
-                                    onCountryChanged: (value) {
-                                      setState(() {
-                                        ///store value in country variable
-                                        countryValue = value;
-                                      });
-                                    },
-
-                                    ///triggers once state selected in dropdown
-                                    onStateChanged: (value) {
-                                      setState(() {
-                                        ///store value in state variable
-                                        stateValue = value!;
-                                      });
-                                    },
-
-                                    ///triggers once city selected in dropdown
-                                    onCityChanged: (value) {
-                                      setState(() {
-                                        ///store value in city variable
-                                        cityValue = value!;
-                                        zoneName = cityValue.replaceAll(' ', '_').toUpperCase();
-                                      });
-                                    },
                                   ),
-                                ),
-                                SizedBox(height: 20),
-                                Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.grey.shade300,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'Zone : ',
-                                            style: AppStyles.tableHeaderStyle,
-                                          ),
-                                          Text(
-                                            zoneName,
-                                            style: AppStyles.tableBodyStyle,
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Colors.black,
+                                  SizedBox(height: 20),
+                                  Container(
+                                    width: double.infinity,
+                                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.grey.shade300,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Zone : ',
+                                              style: AppStyles.tableHeaderStyle,
                                             ),
-                                            onPressed: (){
-                                              setState(() {
-                                                _isVisible = !_isVisible;
-                                              });
-                                            },
-                                            child: Text(
-                                              'Cancel',
-                                              style: AppStyles.buttonStyleWhite,
+                                            Text(
+                                              zoneName,
+                                              style: AppStyles.tableBodyStyle,
                                             ),
-                                          ),
-                                          SizedBox(width: 20),
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Colors.black,
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.black,
+                                              ),
+                                              onPressed: (){
+                                                setState(() {
+                                                  _isVisible = !_isVisible;
+                                                });
+                                              },
+                                              child: Text(
+                                                'Cancel',
+                                                style: AppStyles.buttonStyleWhite,
+                                              ),
                                             ),
-                                            onPressed: (){
-                                              if(zoneName.isNotEmpty){
-                                                _createZone();
-                                              }else{
-                                                AppWidgets()
-                                                    .showAlertWarningWithButton(
-                                                    context: context,
-                                                    warnMessage: 'Please Select City Name to create Zone.',
-                                                );
-                                              }
-                                            },
-                                            child: Text(
-                                              'Create',
-                                              style: AppStyles.buttonStyleWhite,
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                            SizedBox(width: 20),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.black,
+                                              ),
+                                              onPressed: (){
+                                                if(zoneName.isNotEmpty){
+                                                  _createZone();
+                                                }else{
+                                                  AppWidgets()
+                                                      .showAlertWarningWithButton(
+                                                      context: context,
+                                                      warnMessage: 'Please Select City Name to create Zone.',
+                                                  );
+                                                }
+                                              },
+                                              child: Text(
+                                                'Create',
+                                                style: AppStyles.buttonStyleWhite,
+                                              ),
+                                            )
+                                          ],
+                                        ),
 
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 25),
+                            SizedBox(width: 25),
 
-                          if(MediaQuery.of(context).size.width >= 615)...{
-                            Spacer(),
-                            Icon(
-                              Icons.location_pin,
-                              color: Colors.green,
-                              size: 120,
-                            ),
-                          }
-                        ],
+                            if(MediaQuery.of(context).size.width >= 615)...{
+                              Spacer(),
+                              Icon(
+                                Icons.location_pin,
+                                color: Colors.green,
+                                size: 120,
+                              ),
+                            }
+                          ],
+                        ),
                       ),
-                    ),
-                  )
+                    )
+                ),
               ),
             ),
           ),

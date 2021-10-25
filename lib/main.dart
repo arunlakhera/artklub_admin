@@ -1,11 +1,13 @@
 
+import 'package:artklub_admin/model/ScreenArguments.dart';
 import 'package:artklub_admin/pages/adminusers/AdminUsersPage.dart';
+import 'package:artklub_admin/pages/assignments/AssignmentsPage.dart';
 import 'package:artklub_admin/pages/batches/BatchesPage.dart';
 import 'package:artklub_admin/pages/coordinators/CoordinatorsPage.dart';
-import 'package:artklub_admin/pages/coordinators/widgets/EditCoordinatorCardWidget.dart';
 import 'package:artklub_admin/pages/dashboard/DashboardPage.dart';
 import 'package:artklub_admin/pages/HomePage.dart';
 import 'package:artklub_admin/pages/SplashPage.dart';
+import 'package:artklub_admin/pages/joinrequests/JoinRequestsPage.dart';
 import 'package:artklub_admin/pages/notifications/NotificationsPage.dart';
 import 'package:artklub_admin/pages/payments/PaymentsPage.dart';
 import 'package:artklub_admin/pages/reports/ReportsPage.dart';
@@ -37,18 +39,21 @@ class MyApp extends StatelessWidget {
         DashboardPage.id:(context) => DashboardPage(),
         ZonesPage.id:(context) => ZonesPage(),
         CoordinatorsPage.id:(context) => CoordinatorsPage(),
+        JoinRequestsPage.id:(context) => JoinRequestsPage(),
         TeachersPage.id:(context) => TeachersPage(),
 
         BatchesPage.id:(context) => BatchesPage(),
         StudentsPage.id:(context) => StudentsPage(),
+        AssignmentsPage.id:(context) => AssignmentsPage(),
+
         PaymentsPage.id:(context) => PaymentsPage(),
         NotificationsPage.id:(context) => NotificationsPage(),
         ReportsPage.id:(context) => ReportsPage(),
         AdminUsersPage.id:(context) => AdminUsersPage(),
 
-
     },
       builder: EasyLoading.init(),
+
     );
   }
 }

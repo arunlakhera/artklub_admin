@@ -1,3 +1,4 @@
+import 'package:artklub_admin/model/ScreenArguments.dart';
 import 'package:artklub_admin/pages/dashboard/DashboardPage.dart';
 import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
@@ -26,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
 
   var _emailIdTextController = TextEditingController();
   var _passwordTextController = TextEditingController();
-
 
   bool _obscureText = true;
   bool _isSubmitting = false;
@@ -323,15 +323,29 @@ class _LoginPageState extends State<LoginPage> {
 
       if(userCredential.user != null){
 
-        setState(() {
-          EasyLoading.dismiss();
+        final result = _services.admin.doc(userCredential.user!.email).get();
+
+        result.then((value){
+
+          setState(() {
+            EasyLoading.dismiss();
+          });
+
+          if(value.get('active')){
+            setState(() {
+              ScreenArguments.updateUser(value.get('emailId'), value.get('type'), '', value.get('active'));
+            });
+
+            Navigator.pushNamed(context, DashboardPage.id);
+          }else{
+            AppWidgets().showScaffoldMessage(context: context, msg: 'You account is not Active. Please contact Administrator.');
+          }
+
+        }).whenComplete((){
+          setState(() {
+            EasyLoading.dismiss();
+          });
         });
-
-        Navigator.pushNamed(context, DashboardPage.id);
-
-        // Navigator.push(context, MaterialPageRoute(builder: (context){
-        //   return DashboardPage();
-        // }));
 
       }else{
 

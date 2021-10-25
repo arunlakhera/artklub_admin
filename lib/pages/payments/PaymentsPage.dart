@@ -1,3 +1,4 @@
+import 'package:artklub_admin/model/ScreenArguments.dart';
 import 'package:artklub_admin/services/SideBarMenu.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class PaymentsPage extends StatelessWidget {
             ),
           ),
         ),
-        sideBar: _sideBar.sideBarMenus(context, PaymentsPage.id),
+        sideBar: _sideBar.sideBarMenus(context, PaymentsPage.id,userType: ScreenArguments.userType),
         body: SingleChildScrollView(
           child: Center(
             child: Container(

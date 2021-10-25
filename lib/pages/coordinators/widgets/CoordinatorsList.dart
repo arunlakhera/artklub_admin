@@ -1,6 +1,7 @@
 
 import 'package:artklub_admin/pages/coordinators/widgets/EditCoordinatorCardWidget.dart';
 import 'package:artklub_admin/services/firebase_services.dart';
+import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,6 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                 _querySnapshot = _services.coordinator.where('emailId', isEqualTo: value).snapshots();
                               });
                             }
-
                           },
                         ),
                         trailing: IconButton(
@@ -121,15 +121,21 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                               sortColumnIndex: _sortColumnIndex,
                               columns: [
                                 DataColumn(
-                                  label: Text(
-                                    'Photo',
-                                    style: AppStyles.tableHeaderStyle,
+                                  label: Expanded(
+                                    child: Text(
+                                      'PHOTO',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppStyles.tableHeaderStyle,
+                                    ),
                                   ),
                                 ),
                                 DataColumn(
-                                  label: Text(
-                                    'EMAIL ID',
-                                    style: AppStyles.tableHeaderStyle,
+                                  label: Expanded(
+                                    child: Text(
+                                      'EMAIL ID',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppStyles.tableHeaderStyle,
+                                    ),
                                   ),
                                   onSort: (columnIndex, ascending) {
                                     setState(() {
@@ -143,9 +149,12 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                   },
                                 ),
                                 DataColumn(
-                                  label: Text(
-                                    'NAME',
-                                    style: AppStyles.tableHeaderStyle,
+                                  label: Expanded(
+                                    child: Text(
+                                      'NAME',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppStyles.tableHeaderStyle,
+                                    ),
                                   ),
                                   onSort: (columnIndex, ascending) {
                                     setState(() {
@@ -159,9 +168,12 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                   },
                                 ),
                                 DataColumn(
-                                  label: Text(
-                                    'PHONE NUMBER',
-                                    style: AppStyles.tableHeaderStyle,
+                                  label: Expanded(
+                                    child: Text(
+                                      'PHONE NUMBER',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppStyles.tableHeaderStyle,
+                                    ),
                                   ),
                                   onSort: (columnIndex, ascending) {
                                     setState(() {
@@ -175,9 +187,12 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                   },
                                 ),
                                 DataColumn(
-                                  label: Text(
-                                    'ZONE',
-                                    style: AppStyles.tableHeaderStyle,
+                                  label: Expanded(
+                                    child: Text(
+                                      'ZONE',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppStyles.tableHeaderStyle,
+                                    ),
                                   ),
                                   onSort: (columnIndex, ascending) {
                                     setState(() {
@@ -190,26 +205,13 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                     });
                                   },
                                 ),
-                                // DataColumn(
-                                //   label: Text(
-                                //     'CREATED ON',
-                                //     style: AppStyles.tableHeaderStyle,
-                                //   ),
-                                //   onSort: (columnIndex, ascending) {
-                                //     setState(() {
-                                //       _sortColumnIndex = 4;
-                                //       _ascending = !_ascending!;
-                                //       ascending = _ascending!;
-                                //       _querySnapshot = _services.coordinator
-                                //           .orderBy('createdOn', descending: ascending)
-                                //           .snapshots();
-                                //     },);
-                                //   },
-                                // ),
                                 DataColumn(
-                                  label: Text(
-                                    'STATUS',
-                                    style: AppStyles.tableHeaderStyle,
+                                  label: Expanded(
+                                    child: Text(
+                                      'STATUS',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppStyles.tableHeaderStyle,
+                                    ),
                                   ),
                                   onSort: (columnIndex, ascending) {
                                     setState(() {
@@ -223,9 +225,12 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                                   },
                                 ),
                                 DataColumn(
-                                  label: Text(
-                                    'Action',
-                                    style: AppStyles.tableHeaderStyle,
+                                  label: Expanded(
+                                    child: Text(
+                                      'ACTION',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppStyles.tableHeaderStyle,
+                                    ),
                                   ),
                                   onSort: (columnIndex, ascending) {
                                     setState(() {
@@ -245,7 +250,6 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -260,7 +264,7 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
   }
 
   DataRow _buildListItem(DocumentSnapshot data) {
-    
+
     String emailId = data.get('emailId');
     String name = data.get('name');
     String phoneNumber = data.get('phoneNumber');
@@ -308,12 +312,7 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
           style: AppStyles.tableBodyStyle,
         ),
       ),
-      // DataCell(
-      //   Text(
-      //     '${createdOn.toDate().day}/${createdOn.toDate().month}/${createdOn.toDate().year}',
-      //     style: AppStyles.tableBodyStyle,
-      //   ),
-      // ),
+
       DataCell(
         Container(
           width: 100,
@@ -338,8 +337,10 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
 
       DataCell(
         IconButton(
-          icon: Icon(Icons.edit),
+          icon: Icon(Icons.remove_red_eye),
+          tooltip: 'View',
           splashColor: Colors.green,
+          hoverColor: AppColors.colorLightGreen,
           splashRadius: 20,
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context){
@@ -348,7 +349,6 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
           },
         )
       ),
-
     ]);
   }
 

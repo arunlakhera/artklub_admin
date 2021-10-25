@@ -1,4 +1,5 @@
 import 'package:artklub_admin/common/HeaderWidget.dart';
+import 'package:artklub_admin/model/ScreenArguments.dart';
 import 'package:artklub_admin/pages/adminusers/widgets/AdminUsersList.dart';
 import 'package:artklub_admin/pages/adminusers/widgets/CreateUserCardWidget.dart';
 import 'package:artklub_admin/services/SideBarMenu.dart';
@@ -41,7 +42,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
           ),
         ),
       ),
-      sideBar: _sideBar.sideBarMenus(context, AdminUsersPage.id),
+      sideBar: _sideBar.sideBarMenus(context, AdminUsersPage.id,userType: ScreenArguments.userType),
       body: Container(
         alignment: Alignment.topLeft,
         margin: const EdgeInsets.only(left: 10,right: 10,bottom: 10),

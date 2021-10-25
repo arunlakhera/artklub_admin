@@ -1,22 +1,20 @@
-import 'package:artklub_admin/pages/joinrequests/JoinRequestsPage.dart';
 import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class NotificationCardWidget extends StatefulWidget {
-  const NotificationCardWidget({Key? key}) : super(key: key);
+class GreetingsCardWidget extends StatefulWidget {
+  const GreetingsCardWidget({Key? key}) : super(key: key);
 
   @override
-  State<NotificationCardWidget> createState() => _NotificationCardWidgetState();
+  State<GreetingsCardWidget> createState() => _GreetingsCardWidgetState();
 }
 
-class _NotificationCardWidgetState extends State<NotificationCardWidget> {
-  
+class _GreetingsCardWidgetState extends State<GreetingsCardWidget> {
+
   String? numberOfRequests;
   bool _isLoading = false;
-  
+
   FirebaseServices _services = FirebaseServices();
 
   Future<void> getJoinRequests()async{
@@ -66,50 +64,19 @@ class _NotificationCardWidgetState extends State<NotificationCardWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text.rich(
-
-                  TextSpan(
-                    style:TextStyle(fontSize: 16, color: Colors.black),
-                    children: [
-                      TextSpan(text: 'Welcome '),
-                    ]
-                  ),
-                ),
-                SizedBox(height: 10,),
 
                 Text(
                   'You have $numberOfRequests Pending Join Requests.',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                    height: 1.5,
-                  ),
+                  style: AppStyles.titleStyleBlack,
                 ),
-                SizedBox(height: 10,),
 
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, JoinRequestsPage.id);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    decoration: BoxDecoration(
-                      color: AppColors.colorButtonDarkBlue,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      'Read More',
-                      style: AppStyles().getTitleStyle(titleSize: 14, titleColor: AppColors.colorWhite, titleWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
               ],
             ),
             if(MediaQuery.of(context).size.width >= 615)...{
               Spacer(),
               Image.asset(
                 'assets/images/notification_image.png',
-                height: 125,
+                height: 100,
               ),
             }
 

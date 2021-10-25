@@ -113,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.4"
+  date_format:
+    dependency: "direct main"
+    description:
+      name: date_format
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
   dotted_border:
     dependency: "direct main"
     description:
@@ -422,6 +429,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.11.1"
+  pie_chart:
+    dependency: "direct main"
+    description:
+      name: pie_chart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.1"
   platform:
     dependency: transitive
     description:
@@ -532,6 +546,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  vertical_barchart:
+    dependency: "direct main"
+    description:
+      name: vertical_barchart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0+2"
   win32:
     dependency: transitive
     description:

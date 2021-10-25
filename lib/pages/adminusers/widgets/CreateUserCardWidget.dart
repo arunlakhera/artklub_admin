@@ -38,115 +38,123 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
 
           Visibility(
             visible: !_isVisible,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: AppColors.colorYellow,
-              ),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text.rich(
-                        TextSpan(
-                            style:TextStyle(fontSize: 16, color: Colors.black),
-                            children: [
+            child: Card(
+              elevation: 5,
+              color: AppColors.colorYellow,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.colorYellow,
+                ),
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                              style:TextStyle(fontSize: 16, color: Colors.black),
+                              children: [
 
-                              TextSpan(
-                                text: 'Create',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                TextSpan(
+                                  text: 'Create',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
 
-                              TextSpan(text: ' and '),
+                                TextSpan(text: ' and '),
 
-                              TextSpan(
-                                text: 'Manage',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                TextSpan(
+                                  text: 'Manage',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
 
-                              TextSpan(text: ' New Admin Users.'),
+                                TextSpan(text: ' New Admin Users.'),
 
-                            ]
-                        ),
-                      ),
-                      SizedBox(height: 20,),
-
-                      GestureDetector(
-                        onTap: (){
-                          setState(() {
-                            _isVisible = !_isVisible;
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          decoration: BoxDecoration(
-                            color: AppColors.colorButtonDarkBlue,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            'Create Admin User',
-                            style: AppStyles().getTitleStyle(titleSize: 14, titleColor: AppColors.colorWhite, titleWeight: FontWeight.bold),
+                              ]
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  if(MediaQuery.of(context).size.width >= 615)...{
-                    Spacer(),
-                    Image.asset(
-                      'assets/images/notification_image.png',
-                      height: 120,
+                        SizedBox(height: 20,),
+
+                        GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              _isVisible = !_isVisible;
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: AppColors.colorButtonDarkBlue,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              'Create Admin User',
+                              style: AppStyles().getTitleStyle(titleSize: 14, titleColor: AppColors.colorWhite, titleWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  }
+                    if(MediaQuery.of(context).size.width >= 615)...{
+                      Spacer(),
+                      Image.asset(
+                        'assets/images/notification_image.png',
+                        height: 120,
+                      ),
+                    }
 
-                ],
+                  ],
+                ),
               ),
             ),
           ),
 
           Visibility(
             visible: _isVisible,
-            child: Container(
-              height: 120,
-              decoration: BoxDecoration(
-                  color: AppColors.colorYellow,
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Form(
-                    key: _createAdminUserFormKey,
-                    child: Container(
-                      child: Row(
-                        children: [
+            child: Card(
+              elevation: 5,
+              color: AppColors.colorYellow,
+              child: Container(
+                height: 120,
+                decoration: BoxDecoration(
+                    color: AppColors.colorYellow,
+                    borderRadius: BorderRadius.circular(20)
+                ),
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Form(
+                      key: _createAdminUserFormKey,
+                      child: Container(
+                        child: Row(
+                          children: [
 
-                          _buildLoginEmailIdText(),
-                          SizedBox(width: 20),
-                          _buildLoginPasswordText(),
-                          SizedBox(width: 20),
-                          _buildDropDown(),
-                          SizedBox(width: 20),
-                          _buildCreateAdminUserButton(),
+                            _buildLoginEmailIdText(),
+                            SizedBox(width: 20),
+                            _buildLoginPasswordText(),
+                            SizedBox(width: 20),
+                            _buildDropDown(),
+                            SizedBox(width: 20),
+                            _buildCreateAdminUserButton(),
 
-                          if(MediaQuery.of(context).size.width >= 615)...{
-                            Spacer(),
-                            Image.asset(
-                              'assets/images/notification_image.png',
-                              height: 120,
-                            ),
-                          }
-                        ],
+                            if(MediaQuery.of(context).size.width >= 615)...{
+                              Spacer(),
+                              Image.asset(
+                                'assets/images/notification_image.png',
+                                height: 120,
+                              ),
+                            }
+                          ],
+                        ),
                       ),
-                    ),
-                  )
+                    )
+                ),
               ),
             ),
           ),

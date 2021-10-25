@@ -1,9 +1,8 @@
 import 'package:artklub_admin/common/HeaderWidget.dart';
-import 'package:artklub_admin/model/DroppedFile.dart';
+import 'package:artklub_admin/model/ScreenArguments.dart';
 import 'package:artklub_admin/pages/coordinators/widgets/CoordinatorsList.dart';
 import 'package:artklub_admin/pages/coordinators/widgets/CreateCoordinatorCardWidget.dart';
 import 'package:artklub_admin/services/SideBarMenu.dart';
-import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +45,7 @@ class _CoordinatorsPageState extends State<CoordinatorsPage> {
             ),
           ),
         ),
-        sideBar: _sideBar.sideBarMenus(context, CoordinatorsPage.id),
+        sideBar: _sideBar.sideBarMenus(context, CoordinatorsPage.id,userType: ScreenArguments.userType),
         body: Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.only(left: 10,right: 10,bottom: 10),
@@ -86,75 +85,79 @@ class _CoordinatorsPageState extends State<CoordinatorsPage> {
   }
 
   Widget _buildPageHeader(title){
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: AppColors.colorYellow,
-      ),
-      padding: EdgeInsets.only(left: 20, right: 20),
-      child: Row(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text.rich(
-                TextSpan(
-                    style:TextStyle(fontSize: 16, color: Colors.black),
-                    children: [
+    return Card(
+      elevation: 5,
+      color: AppColors.colorYellow,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: AppColors.colorYellow,
+        ),
+        padding: EdgeInsets.only(left: 20, right: 20),
+        child: Row(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text.rich(
+                  TextSpan(
+                      style:TextStyle(fontSize: 16, color: Colors.black),
+                      children: [
 
-                      TextSpan(
-                        text: 'Create',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                        TextSpan(
+                          text: 'Create',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
 
-                      TextSpan(text: ' and '),
+                        TextSpan(text: ' and '),
 
-                      TextSpan(
-                        text: 'Manage',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                        TextSpan(
+                          text: 'Manage',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
 
-                      TextSpan(text: ' New Coordinators.'),
+                        TextSpan(text: ' New Coordinators.'),
 
-                    ]
-                ),
-              ),
-              SizedBox(height: 20,),
-
-              GestureDetector(
-                onTap: (){
-                  setState(() {
-                    _createFlag = !_createFlag;
-                  });
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: AppColors.colorButtonDarkBlue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    title,
-                    style: AppStyles().getTitleStyle(titleSize: 14, titleColor: AppColors.colorWhite, titleWeight: FontWeight.bold),
+                      ]
                   ),
                 ),
-              ),
-            ],
-          ),
-          if(MediaQuery.of(context).size.width >= 615)...{
-            Spacer(),
-            Image.asset(
-              'assets/images/coordinator.png',
-              height: 120,
+                SizedBox(height: 20,),
+
+                GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      _createFlag = !_createFlag;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: AppColors.colorButtonDarkBlue,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      title,
+                      style: AppStyles().getTitleStyle(titleSize: 14, titleColor: AppColors.colorWhite, titleWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          }
+            if(MediaQuery.of(context).size.width >= 615)...{
+              Spacer(),
+              Image.asset(
+                'assets/images/coordinator.png',
+                height: 120,
+              ),
+            }
 
-        ],
+          ],
+        ),
       ),
     );
   }

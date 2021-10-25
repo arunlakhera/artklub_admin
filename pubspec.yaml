@@ -34,6 +34,9 @@ dependencies:
   csc_picker: ^0.2.6
   flutter_dropzone: ^3.0.0
   dotted_border: ^2.0.0+1
+  date_format: ^2.0.4
+  pie_chart: ^5.0.1
+  vertical_barchart: ^2.0.0+2
 
 dev_dependencies:
   flutter_test:

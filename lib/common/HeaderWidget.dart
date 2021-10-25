@@ -1,3 +1,4 @@
+import 'package:artklub_admin/model/ScreenArguments.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppResponsive.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
@@ -36,7 +37,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Text(
-                'Hyderabad',
+                ScreenArguments.userZone,
                 style: AppStyles().getTitleStyle(
                     titleColor: Colors.black,
                     titleSize: 14,

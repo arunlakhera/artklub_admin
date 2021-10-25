@@ -1,4 +1,5 @@
 import 'package:artklub_admin/common/HeaderWidget.dart';
+import 'package:artklub_admin/model/ScreenArguments.dart';
 import 'package:artklub_admin/pages/zones/widgets/CreateZonesCardWidget.dart';
 import 'package:artklub_admin/pages/zones/widgets/ZonesList.dart';
 import 'package:artklub_admin/services/SideBarMenu.dart';
@@ -21,6 +22,7 @@ class _ZonesPageState extends State<ZonesPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return AdminScaffold(
       backgroundColor: AppColors.colorBlack,
       appBar: AppBar(
@@ -41,7 +43,7 @@ class _ZonesPageState extends State<ZonesPage> {
           ),
         ),
       ),
-      sideBar: _sideBar.sideBarMenus(context, ZonesPage.id),
+      sideBar: _sideBar.sideBarMenus(context, ZonesPage.id,userType: ScreenArguments.userType),
       body: Container(
         alignment: Alignment.topLeft,
         margin: const EdgeInsets.only(left: 10,right: 10,bottom: 10),

@@ -30,15 +30,10 @@ class _SplashPageState extends State<SplashPage> {
             FirebaseAuth.instance
                 .authStateChanges()
                 .listen((User? user) {
-              if (user == null) {
-
+              if(user == null) {
                 Navigator.pushNamed(context, HomePage.id);
-                //Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => HomePage(title: 'Artklub Admin Dashboard',)));
-
-              } else {
-
+              }else {
                 Navigator.pushNamed(context, DashboardPage.id);
-                //Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => DashboardPage()));
               }
             });
           },

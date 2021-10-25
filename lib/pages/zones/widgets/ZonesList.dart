@@ -109,9 +109,12 @@ class _ZonesListState extends State<ZonesList> {
                           sortColumnIndex: _sortColumnIndex,
                           columns: [
                             DataColumn(
-                              label: Text(
-                                'Zone',
-                                style: AppStyles.tableHeaderStyle,
+                              label: Expanded(
+                                child: Text(
+                                  'ZONE',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppStyles.tableHeaderStyle,
+                                ),
                               ),
                               onSort: (columnIndex, ascending) {
                                 setState(
@@ -128,9 +131,12 @@ class _ZonesListState extends State<ZonesList> {
                               },
                             ),
                             DataColumn(
-                              label: Text(
-                                'State',
-                                style: AppStyles.tableHeaderStyle,
+                              label: Expanded(
+                                child: Text(
+                                  'STATE',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppStyles.tableHeaderStyle,
+                                ),
                               ),
                               onSort: (columnIndex, ascending) {
                                 setState(() {
@@ -144,9 +150,12 @@ class _ZonesListState extends State<ZonesList> {
                               },
                             ),
                             DataColumn(
-                              label: Text(
-                                'City',
-                                style: AppStyles.tableHeaderStyle,
+                              label: Expanded(
+                                child: Text(
+                                  'CITY',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppStyles.tableHeaderStyle,
+                                ),
                               ),
                               onSort: (columnIndex, ascending) {
                                 setState(() {
@@ -160,9 +169,12 @@ class _ZonesListState extends State<ZonesList> {
                               },
                             ),
                             DataColumn(
-                              label: Text(
-                                'Country',
-                                style: AppStyles.tableHeaderStyle,
+                              label: Expanded(
+                                child: Text(
+                                  'COUNTRY',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppStyles.tableHeaderStyle,
+                                ),
                               ),
                               onSort: (columnIndex, ascending) {
                                 setState(() {
@@ -176,9 +188,12 @@ class _ZonesListState extends State<ZonesList> {
                               },
                             ),
                             DataColumn(
-                              label: Text(
-                                'CREATED ON',
-                                style: AppStyles.tableHeaderStyle,
+                              label: Expanded(
+                                child: Text(
+                                  'CREATED ON',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppStyles.tableHeaderStyle,
+                                ),
                               ),
                               onSort: (columnIndex, ascending) {
                                 setState(
@@ -195,9 +210,12 @@ class _ZonesListState extends State<ZonesList> {
                               },
                             ),
                             DataColumn(
-                              label: Text(
-                                'STATUS',
-                                style: AppStyles.tableHeaderStyle,
+                              label: Expanded(
+                                child: Text(
+                                  'STATUS',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: AppStyles.tableHeaderStyle,
+                                ),
                               ),
                               onSort: (columnIndex, ascending) {
                                 setState(
@@ -228,6 +246,7 @@ class _ZonesListState extends State<ZonesList> {
   }
 
   DataRow _buildListItem(DocumentSnapshot data) {
+
     String zoneName = data.get('zoneName');
     String state = data.get('state');
     String city = data.get('city');

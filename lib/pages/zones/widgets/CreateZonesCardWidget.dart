@@ -45,11 +45,11 @@ class _CreateZonesCardWidgetState extends State<CreateZonesCardWidget> {
             visible: !_isVisible,
             child: Card(
               elevation: 5,
-              color: AppColors.colorYellow,
+              color: AppColors.colorNotificationWidget,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: AppColors.colorYellow,
+                  color: AppColors.colorNotificationWidget,
                 ),
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Row(
@@ -110,7 +110,7 @@ class _CreateZonesCardWidgetState extends State<CreateZonesCardWidget> {
                       Spacer(),
                       Icon(
                         Icons.location_pin,
-                        color: Colors.green,
+                        color: AppColors.colorWhite,
                         size: 120,
                       )
                     }

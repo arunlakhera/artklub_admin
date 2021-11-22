@@ -52,12 +52,12 @@ class _NotificationCardWidgetState extends State<NotificationCardWidget> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      color: AppColors.colorYellow,
+      color: AppColors.colorNotificationWidget,
       child: _isLoading ? Center(child: CircularProgressIndicator(),)
           :Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: AppColors.colorYellow,
+          color: Colors.teal,
         ),
         padding: EdgeInsets.all(20),
         child: Row(
@@ -69,7 +69,7 @@ class _NotificationCardWidgetState extends State<NotificationCardWidget> {
                 Text.rich(
 
                   TextSpan(
-                    style:TextStyle(fontSize: 16, color: Colors.black),
+                    style:TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(text: 'Welcome '),
                     ]
@@ -81,7 +81,7 @@ class _NotificationCardWidgetState extends State<NotificationCardWidget> {
                   'You have $numberOfRequests Pending Join Requests.',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.black,
+                    color: Colors.grey.shade50,
                     height: 1.5,
                   ),
                 ),

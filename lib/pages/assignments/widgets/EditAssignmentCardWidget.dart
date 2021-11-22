@@ -1,15 +1,13 @@
-import 'package:artklub_admin/common/HeaderWidget.dart';
+
 import 'package:artklub_admin/model/DroppedFile.dart';
 import 'package:artklub_admin/model/Student.dart';
 import 'package:artklub_admin/pages/assignments/AssignmentsPage.dart';
-import 'package:artklub_admin/pages/coordinators/widgets/CreateCoordinatorCardWidget.dart';
 import 'package:artklub_admin/services/SideBarMenu.dart';
 import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:artklub_admin/utilities/AppWidgets.dart';
 import 'package:artklub_admin/utilities/DroppedFileWidget.dart';
-import 'package:artklub_admin/utilities/DropzoneWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
@@ -32,10 +30,7 @@ class _EditAssignmentCardWidgetState extends State<EditAssignmentCardWidget> {
   SideBarWidget _sideBar = SideBarWidget();
 
   final ScrollController _studentController = ScrollController();
-  final ScrollController _firstController = ScrollController();
   FirebaseServices _services = FirebaseServices();
-
-  TextEditingController _searchStudentController = TextEditingController();
 
   bool _isLoading = false;
   bool showDataFlag = false;
@@ -54,7 +49,6 @@ class _EditAssignmentCardWidgetState extends State<EditAssignmentCardWidget> {
       selectedStatus;
 
   DroppedFile? assignmentImageName;
-  String? _studentsDropDownValue, _selectedStudent;
   List<Student> batchStudentsList = [];
   QuerySnapshot? _querySnapshot;
 
@@ -68,7 +62,6 @@ class _EditAssignmentCardWidgetState extends State<EditAssignmentCardWidget> {
     _zone = '';
     _startDate = '';
     _endDate = '';
-    _selectedStudent = '';
     selectedStatus = 'NA';
 
     getAssignment();

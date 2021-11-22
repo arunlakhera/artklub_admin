@@ -3,6 +3,7 @@ import 'package:artklub_admin/pages/adminusers/AdminUsersPage.dart';
 import 'package:artklub_admin/pages/assignments/AssignmentsPage.dart';
 import 'package:artklub_admin/pages/batches/BatchesPage.dart';
 import 'package:artklub_admin/pages/coordinators/CoordinatorsPage.dart';
+import 'package:artklub_admin/pages/courses/CoursesPage.dart';
 import 'package:artklub_admin/pages/dashboard/DashboardPage.dart';
 import 'package:artklub_admin/pages/joinrequests/JoinRequestsPage.dart';
 import 'package:artklub_admin/pages/notifications/NotificationsPage.dart';
@@ -20,7 +21,7 @@ class SideBarWidget{
 
   sideBarMenus(context, selectedRoute, {userType = 'a'}){
     return SideBar(
-      backgroundColor: AppColors.colorLightGreen,
+      backgroundColor: AppColors.colorYellow,
       activeBackgroundColor: Colors.grey.shade900,
       borderColor: Colors.grey,
       textStyle: GoogleFonts.poppins(
@@ -38,6 +39,11 @@ class SideBarWidget{
           title: 'Dashboard',
           route: DashboardPage.id,
           icon: Icons.dashboard,
+        ),
+        MenuItem(
+          title: 'Courses',
+          route: CoursesPage.id,
+          icon: Icons.art_track,
         ),
         MenuItem(
           title: 'Zones',
@@ -119,7 +125,7 @@ class SideBarWidget{
       footer: Container(
         height: 80,
         width: double.infinity,
-        color: AppColors.colorLightGreen,
+        color: AppColors.colorYellow,
         child: Center(
           child: Image.asset('assets/images/artklub_logo.png', height: 70, width: 70,),
         ),

@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
       width: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: AppColors.colorLightGreen,
+        color: AppColors.colorYellow,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -134,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               height: 3,
               width: 25,
-              color: Colors.green,
+              color: AppColors.colorYellow,
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
           controller: _emailIdTextController,
           validator: (val) =>
           (!val.toString().contains("@") || val!.length < 1)
-              ? "Please provide valid Username"
+              ? "Please provide valid Email ID"
               : null,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                 titleColor: Colors.grey),
             prefixIcon: Icon(
               Icons.mail,
-              color: Colors.black,
+              color: AppColors.colorYellow,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -222,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
             fillColor: Colors.white,
             prefixIcon: Icon(
               Icons.lock,
-              color: Colors.black,
+              color:AppColors.colorYellow,
             ),
             labelText: 'Password',
             labelStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,
@@ -258,7 +258,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               child:
               Icon(_obscureText ? Icons.visibility_off : Icons.visibility,
-                color: Colors.green,),
+                color: AppColors.colorYellow,),
             ),
           ),
 
@@ -275,6 +275,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _buildLoginButton() {
+
     return GestureDetector(
       onTap: (){
         !_isSubmitting ? _login():
@@ -286,7 +287,7 @@ class _LoginPageState extends State<LoginPage> {
         margin: EdgeInsets.only(left: 10, right: 10),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: AppColors.colorBlack,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(

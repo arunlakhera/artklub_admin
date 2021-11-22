@@ -5,8 +5,12 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class FirebaseServices {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   CollectionReference zones = FirebaseFirestore.instance.collection('zones');
   CollectionReference admin = FirebaseFirestore.instance.collection('admin');
+
+  CollectionReference courses = FirebaseFirestore.instance.collection('courses');
+
   CollectionReference joinRequest =
   FirebaseFirestore.instance.collection('joinrequest');
   CollectionReference coordinator =
@@ -184,6 +188,14 @@ class FirebaseServices {
 
   Future<void> updateStudentStatus(id, activeStatus) async {
     return await student
+        .doc(id)
+        .update({'active': activeStatus})
+        .then((value) => print("Student Status Updated"))
+        .catchError((error) => print("Failed to update Student: $error"));
+  }
+
+  Future<void> updateCourseStatus(id, courseName,activeStatus) async {
+    return await courses
         .doc(id)
         .update({'active': activeStatus})
         .then((value) => print("Student Status Updated"))

@@ -1,5 +1,6 @@
 
 import 'package:artklub_admin/pages/LoginPage.dart';
+import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flip_card/flip_card.dart';
@@ -39,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       //key: Provider.of<MenuController>(context, listen: false).scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.colorYellow,
         leading:Container(),
         title: Text(
           'Artklub Admin Dashboard',

@@ -12,7 +12,8 @@ class AppColors{
   static Color colorBgTop = Color(0xffF7F7F7);
   static Color colorLightGrey = Color(0xff8d96ab);
   static Color colorLightPink = Color(0xfff5e6e6);
-
+  static Color colorTeal = Colors.teal;
+  static Color colorNotificationWidget = Colors.teal;
 
   Color colorBlue = Color(0xff0080c0);
   Color colorDarkBlue = Color(0xff222c3c);

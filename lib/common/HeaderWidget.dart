@@ -33,7 +33,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               decoration: BoxDecoration(
-                color: AppColors.colorLightGreen,
+                color: AppColors.colorYellow,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Text(

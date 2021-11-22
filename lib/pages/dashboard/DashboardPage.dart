@@ -76,11 +76,11 @@ class _DashboardPageState extends State<DashboardPage> {
       backgroundColor: AppColors.colorBlack,
       appBar: AppBar(
         backgroundColor: AppColors.colorBlack,
-        iconTheme: IconThemeData(color: AppColors.colorLightGreen),
+        iconTheme: IconThemeData(color: AppColors.colorYellow),
         title: Container(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             decoration: BoxDecoration(
-              color: AppColors.colorLightGreen,
+              color: AppColors.colorYellow,
               borderRadius: BorderRadius.circular(30),
             ),
             child: const Text(

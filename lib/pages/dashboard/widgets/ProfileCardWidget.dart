@@ -127,10 +127,10 @@ class _ProfileCardWidgetState extends State<ProfileCardWidget> {
     return _isLoading? Center(child: CircularProgressIndicator(),)
         :Card(
       elevation: 5,
-        color: AppColors.colorYellow,
+        color: Colors.teal,
           child: Container(
           decoration: BoxDecoration(
-              color: AppColors.colorYellow,
+              color: AppColors.colorNotificationWidget,
               borderRadius: BorderRadius.circular(10),
           ),
           padding: EdgeInsets.all(10),
@@ -155,14 +155,18 @@ class _ProfileCardWidgetState extends State<ProfileCardWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          adminName!,
-                          style: AppStyles.tableBodyStyle,
+                          adminName!.toUpperCase(),
+                          style: AppStyles().getTitleStyle(
+                            titleSize: 14,
+                            titleColor: Colors.grey.shade50,
+                            titleWeight: FontWeight.bold,
+                          ),
                         ),
                         Text(
                           adminZone!,
                           style: AppStyles().getTitleStyle(
                             titleSize: 12,
-                            titleColor: Colors.black,
+                            titleColor: Colors.grey.shade50,
                             titleWeight: FontWeight.w300,
                           ),
                         ),
@@ -174,7 +178,7 @@ class _ProfileCardWidgetState extends State<ProfileCardWidget> {
 
                 Divider(
                   thickness: 0.5,
-                  color: AppColors.colorBlack,
+                  color: AppColors.colorYellow,
                 ),
 
                 profileListWidget('Joined Date','${createdOn!.toDate().day}/${createdOn!.toDate().month}/${createdOn!.toDate().year}'),
@@ -191,13 +195,19 @@ class _ProfileCardWidgetState extends State<ProfileCardWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(text, style: AppStyles.tableBodyStyle,),
+          Text(
+              text,
+              style:AppStyles().getTitleStyle(
+            titleSize: 12,
+            titleColor: Colors.grey.shade100,
+            titleWeight: FontWeight.w300,
+          )),
           Text(
             value,
             style: AppStyles().getTitleStyle(
               titleSize: 14,
               titleWeight: FontWeight.bold,
-              titleColor: Colors.black,
+              titleColor: Colors.grey.shade50,
             ),
           )
         ],

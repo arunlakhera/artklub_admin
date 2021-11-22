@@ -104,7 +104,7 @@ class _EditBatchesCardWidgetState extends State<EditBatchesCardWidget> {
         setState(() {
           _batchId = batchSnapshot.get('name');
           _zone = batchSnapshot.get('zone');
-          _course = batchSnapshot.get('course');
+          _course = batchSnapshot.get('courses');
           _startDate = batchSnapshot.get('startDate');
           _endDate = batchSnapshot.get('endDate');
           _startTime = batchSnapshot.get('startTime');

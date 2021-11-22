@@ -292,7 +292,7 @@ class _CreateBatchesCardWidgetState extends State<CreateBatchesCardWidget> {
                                       AppWidgets().showScaffoldMessage(
                                           context: context,
                                           msg:
-                                          'Batch already Exists for the course with same timings.');
+                                          'Batch already Exists for the courses with same timings.');
                                     }else{
                                       setState(() {
                                         _summaryFlag = true;

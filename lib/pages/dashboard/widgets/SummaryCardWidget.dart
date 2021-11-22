@@ -225,15 +225,15 @@ class _SummaryCardWidgetState extends State<SummaryCardWidget> {
 
       value.docs.forEach((element) {
 
-        if(element.get('course') == 'Rookie'){
+        if(element.get('courses') == 'Rookie'){
           _rookieBatchesCount++;
-        }else if(element.get('course') == 'Innovator'){
+        }else if(element.get('courses') == 'Innovator'){
           _innovatorBatchesCount++;
-        }else if(element.get('course') == 'Imaginator'){
+        }else if(element.get('courses') == 'Imaginator'){
           _imaginatorBatchesCount++;
-        }else if(element.get('course') == 'Dexter'){
+        }else if(element.get('courses') == 'Dexter'){
           _dexterBatchesCount++;
-        }else if(element.get('course') == 'Adept'){
+        }else if(element.get('courses') == 'Adept'){
           _adeptBatchesCount++;
         }
 

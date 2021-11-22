@@ -87,11 +87,11 @@ class _CoordinatorsPageState extends State<CoordinatorsPage> {
   Widget _buildPageHeader(title){
     return Card(
       elevation: 5,
-      color: AppColors.colorYellow,
+      color: AppColors.colorNotificationWidget,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: AppColors.colorYellow,
+          color: AppColors.colorNotificationWidget,
         ),
         padding: EdgeInsets.only(left: 20, right: 20),
         child: Row(
@@ -109,19 +109,33 @@ class _CoordinatorsPageState extends State<CoordinatorsPage> {
                           text: 'Create',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
 
-                        TextSpan(text: ' and '),
+                        TextSpan(
+                            text: ' and ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                        ),
 
                         TextSpan(
                           text: 'Manage',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
 
-                        TextSpan(text: ' New Coordinators.'),
+                        TextSpan(
+                          text: ' New Coordinators.',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
 
                       ]
                   ),

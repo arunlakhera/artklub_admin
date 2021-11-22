@@ -4,6 +4,7 @@ import 'package:artklub_admin/pages/adminusers/AdminUsersPage.dart';
 import 'package:artklub_admin/pages/assignments/AssignmentsPage.dart';
 import 'package:artklub_admin/pages/batches/BatchesPage.dart';
 import 'package:artklub_admin/pages/coordinators/CoordinatorsPage.dart';
+import 'package:artklub_admin/pages/courses/CoursesPage.dart';
 import 'package:artklub_admin/pages/dashboard/DashboardPage.dart';
 import 'package:artklub_admin/pages/HomePage.dart';
 import 'package:artklub_admin/pages/SplashPage.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         HomePage.id:(context) => HomePage(title: 'Artklub Admin Dashboard'),
         SplashPage.id:(context) => SplashPage(),
         DashboardPage.id:(context) => DashboardPage(),
+        CoursesPage.id:(context) => CoursesPage(),
         ZonesPage.id:(context) => ZonesPage(),
         CoordinatorsPage.id:(context) => CoordinatorsPage(),
         JoinRequestsPage.id:(context) => JoinRequestsPage(),

@@ -1,23 +1,24 @@
 import 'package:artklub_admin/common/HeaderWidget.dart';
 import 'package:artklub_admin/model/ScreenArguments.dart';
-import 'package:artklub_admin/pages/coordinators/widgets/CoordinatorsList.dart';
-import 'package:artklub_admin/pages/coordinators/widgets/CreateCoordinatorCardWidget.dart';
+import 'package:artklub_admin/pages/zonehead/widgets/CreateZoneHeadCardWidget.dart';
+import 'package:artklub_admin/pages/zonehead/widgets/ZoneHeadList.dart';
+import 'package:artklub_admin/pages/zonemanager/ZoneManagerPage.dart';
 import 'package:artklub_admin/services/SideBarMenu.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin_scaffold/admin_scaffold.dart';
 
-class CoordinatorsPage extends StatefulWidget {
-  const CoordinatorsPage({Key? key}) : super(key: key);
+class ZoneHeadPage extends StatefulWidget {
+  const ZoneHeadPage({Key? key}) : super(key: key);
 
-  static const String id = 'coordinators-page';
+  static const String id = 'zonehead-page';
 
   @override
-  State<CoordinatorsPage> createState() => _CoordinatorsPageState();
+  _ZoneHeadPageState createState() => _ZoneHeadPageState();
 }
 
-class _CoordinatorsPageState extends State<CoordinatorsPage> {
+class _ZoneHeadPageState extends State<ZoneHeadPage> {
 
   SideBarWidget _sideBar = SideBarWidget();
   bool _createFlag = false;
@@ -45,7 +46,7 @@ class _CoordinatorsPageState extends State<CoordinatorsPage> {
             ),
           ),
         ),
-        sideBar: _sideBar.sideBarMenus(context, CoordinatorsPage.id,userType: ScreenArguments.userType),
+        sideBar: _sideBar.sideBarMenus(context, ZoneManagerPage.id,userType: ScreenArguments.userType),
         body: Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.only(left: 10,right: 10,bottom: 10),
@@ -57,26 +58,26 @@ class _CoordinatorsPageState extends State<CoordinatorsPage> {
           ),
           child: Column(
             children: [
-              HeaderWidget(title: 'Coordinators'),
+              HeaderWidget(title: 'Zone Head'),
               Divider(thickness: 5,),
               Visibility(
                 visible: !_createFlag,
-                child: _buildPageHeader('Create Coordinator'),
+                child: _buildPageHeader('Create Zone Head'),
               ),
               Visibility(
                 visible: _createFlag,
-                child: _buildPageHeader('View All Coordinators'),
+                child: _buildPageHeader('View All Zone Heads'),
               ),
               Divider(thickness: 5),
 
               Visibility(
                 visible: !_createFlag,
-                child: CoordinatorsList(),
+                child: ZoneHeadList(),
               ),
 
               Visibility(
                 visible: _createFlag,
-                child: CreateCoordinatorCardWidget(),
+                child: CreateZoneHeadCardWidget(),
               ),
             ],
           ),
@@ -109,33 +110,19 @@ class _CoordinatorsPageState extends State<CoordinatorsPage> {
                           text: 'Create',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
                           ),
                         ),
 
-                        TextSpan(
-                            text: ' and ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                        ),
+                        TextSpan(text: ' and '),
 
                         TextSpan(
                           text: 'Manage',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
                           ),
                         ),
 
-                        TextSpan(
-                          text: ' New Coordinators.',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
+                        TextSpan(text: ' New Zone Heads.'),
 
                       ]
                   ),
@@ -177,3 +164,4 @@ class _CoordinatorsPageState extends State<CoordinatorsPage> {
   }
 
 }
+

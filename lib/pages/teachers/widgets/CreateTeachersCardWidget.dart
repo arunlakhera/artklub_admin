@@ -1,5 +1,5 @@
 import 'package:artklub_admin/model/DroppedFile.dart';
-import 'package:artklub_admin/pages/coordinators/widgets/CreateCoordinatorCardWidget.dart';
+import 'package:artklub_admin/pages/zonemanager/widgets/CreateZoneManagerCardWidget.dart';
 import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
@@ -1117,7 +1117,7 @@ class _CreateTeachersCardWidgetState extends State<CreateTeachersCardWidget> {
 
           String type = 't';
           _services
-              .createAdminUser(_emailId, _password, type)
+              .createAdminUser(_emailId, _password, type, _zone)
               .whenComplete(() async {
             if (teacherImageName != null) {
               userImageUrl = await _services.uploadImageToStorage(

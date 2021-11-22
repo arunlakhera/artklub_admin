@@ -38,11 +38,12 @@ class FirebaseServices {
       firebase_storage.FirebaseStorage.instance;
 
   // SAVE DB SECTION
-  Future<void> createAdminUser(emailId, password, type) async {
+  Future<void> createAdminUser(emailId, password, type, zone) async {
     await admin.doc(emailId).set({
       'emailId': emailId,
       'password': password,
       'type': type,
+      'zone': zone,
       'active': true,
       'createdOn': DateTime.now(),
     });

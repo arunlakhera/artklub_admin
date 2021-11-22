@@ -2,6 +2,7 @@ import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
 import 'package:artklub_admin/utilities/AppWidgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -19,6 +20,11 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
   final _createAdminUserFormKey = GlobalKey<FormState>();
   bool _isVisible = false;
 
+
+  String? _zoneDropDownValue;
+  List<String> zonesList = ['Select Zone'];
+  String? _zone;
+
   TextEditingController _emailIdText = TextEditingController();
   TextEditingController _passwordText = TextEditingController();
 
@@ -28,6 +34,60 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
 
   String _dropDownValue = 'Teacher';
   var _items =  ['Coordinator','Teacher','Zone Coordinator'];
+
+
+  @override
+  void initState() {
+    _zone = '';
+    getAllZones();
+    super.initState();
+  }
+
+  Future<void> getAllZones() async {
+    try {
+      setState(() {
+        _isLoading = true;
+        EasyLoading.show(status: 'Loading...');
+      });
+
+      Stream<QuerySnapshot> querySnapshot =
+      _services.zones.where('active', isEqualTo: true).snapshots();
+
+      await querySnapshot.forEach((zoneSnapshot) {
+        zoneSnapshot.docs.forEach((snap) {
+          print(snap.data());
+          print(snap.get('zoneName'));
+          var snapZone = snap.get('zoneName');
+
+          zonesList.add(snapZone);
+        });
+
+        setState(() {
+          if (zonesList.length < 1) {
+            _zoneDropDownValue = zonesList[0];
+            _zone = _zoneDropDownValue;
+          } else {
+            _zoneDropDownValue = zonesList[0];
+            _zone = _zoneDropDownValue;
+          }
+
+          _isLoading = false;
+          EasyLoading.dismiss();
+        });
+      });
+    } on FirebaseException catch (e) {
+      print(e);
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      AppWidgets().showAlertErrorWithButton(
+        context: context,
+        errMessage: 'Error Occurred while loading. Please try again!',
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,35 +181,54 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
               elevation: 5,
               color: AppColors.colorYellow,
               child: Container(
-                height: 120,
+                padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                 decoration: BoxDecoration(
                     color: AppColors.colorYellow,
                     borderRadius: BorderRadius.circular(20)
                 ),
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20),
+                    padding: EdgeInsets.only(left: 10, right: 10),
                     child: Form(
                       key: _createAdminUserFormKey,
                       child: Container(
-                        child: Row(
+                        child: Stack(
                           children: [
+                            Positioned(
+                              right: 5,
+                              child: Image.asset(
+                              'assets/images/notification_image.png',
+                              height: 120,),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      _buildLoginEmailIdText(),
+                                      SizedBox(width: 10),
+                                      _buildLoginPasswordText(),
 
-                            _buildLoginEmailIdText(),
-                            SizedBox(width: 20),
-                            _buildLoginPasswordText(),
-                            SizedBox(width: 20),
-                            _buildDropDown(),
-                            SizedBox(width: 20),
-                            _buildCreateAdminUserButton(),
+                                    ],
+                                  ),
 
-                            if(MediaQuery.of(context).size.width >= 615)...{
-                              Spacer(),
-                              Image.asset(
-                                'assets/images/notification_image.png',
-                                height: 120,
+                                  SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      _buildDropDown(),
+                                      SizedBox(width: 10),
+                                      _buildZoneText(),
+
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 5),
+                                  _buildCreateAdminUserButton(),
+                                ],
                               ),
-                            }
+                            ),
                           ],
                         ),
                       ),
@@ -167,38 +246,36 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
   _buildLoginEmailIdText() {
 
     return Expanded(
-      child: SizedBox(
-        height: 45,
-        child: TextFormField(
-          onSaved: (val) => _emailId = val!,
-          onChanged: (val) => _emailId = val,
-          keyboardType: TextInputType.emailAddress,
-          controller: _emailIdText,
-          style:AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            labelText: "Email Id",
-            labelStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
-            hintText: 'Enter your Email Id',
-            hintStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.grey),
-            prefixIcon: Icon(
-              Icons.mail,
-              color: Colors.black,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Colors.green,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Colors.green,
-              ),
-            ),
 
+      child: Container(
+        height: 45,
+        width: 150,
+        child: Material(
+          elevation: 5,
+          color: Colors.grey.shade200,
+          borderOnForeground: true,
+
+          child: TextFormField(
+            onSaved: (val) => _emailId = val!,
+            onChanged: (val) => _emailId = val,
+            keyboardType: TextInputType.emailAddress,
+            controller: _emailIdText,
+            style:AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              labelText: "Email Id",
+              labelStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
+              hintText: 'Enter your Email Id',
+              hintStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.grey),
+              prefixIcon: Icon(
+                Icons.mail,
+                color: Colors.black,
+              ),
+
+              border: InputBorder.none,
+
+            ),
           ),
         ),
       ),
@@ -207,50 +284,46 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
 
   _buildLoginPasswordText() {
     return Expanded(
-      child: SizedBox(
+      child: Container(
+        width: 150,
         height: 45,
-        child: TextFormField(
+        child: Material(
+            elevation: 5,
+            color: Colors.grey.shade200,
+            borderOnForeground: true,
 
-          onSaved: (val) => _password = val!,
-          onChanged: (val) => _password = val,
-          obscureText: _obscureText,
-          controller: _passwordText,
-          style:AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            prefixIcon: Icon(
-              Icons.lock,
-              color: Colors.black,
-            ),
-            labelText: 'Password',
-            labelStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
+          child: TextFormField(
 
-            hintText: 'Enter your password',
-            hintStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.grey),
-
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Colors.green,
+            onSaved: (val) => _password = val!,
+            onChanged: (val) => _password = val,
+            obscureText: _obscureText,
+            controller: _passwordText,
+            style:AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.black,
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Colors.green,
-              ),
-            ),
+              labelText: 'Password',
+              labelStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
 
-            suffixIcon: GestureDetector(
-              onTap: () {
-                if(!mounted) return;
-                setState(() {
-                  _obscureText = !_obscureText;
-                },);
-              },
-              child:
-              Icon(_obscureText ? Icons.visibility_off : Icons.visibility, color: Colors.grey.shade700,),
+              hintText: 'Enter your password',
+              hintStyle: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.grey),
+
+              border: InputBorder.none,
+
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  if(!mounted) return;
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  },);
+                },
+                child:
+                Icon(_obscureText ? Icons.visibility_off : Icons.visibility, color: Colors.grey.shade700,),
+              ),
             ),
           ),
         ),
@@ -258,44 +331,135 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
     );
   }
 
-  _buildDropDown() {
-    return Container(
-      width: 200,
-      height: 45,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border(
-            left: BorderSide(width: 1, color: Colors.grey.shade700),
-            right: BorderSide(width: 1, color: Colors.grey.shade700),
-            top: BorderSide(width: 1, color: Colors.grey.shade700),
-            bottom: BorderSide(width: 1, color: Colors.grey.shade700),
-          )
-      ),
-      child: DropdownButton(
-        value: _dropDownValue,
-        underline: Container(color: Colors.white),
-        borderRadius: BorderRadius.circular(10),
-        icon: Icon(Icons.keyboard_arrow_down),
-        items: _items.map((String items){
-          return DropdownMenuItem(
-            value: items,
-            child: Text(
-              items,
-              style: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
+  _buildZoneText() {
+    return Expanded(
+      child: Container(
+        width: 150,
+        height: 45,
+        child: Material(
+          elevation: 5,
+          color: Colors.grey.shade200,
+          borderOnForeground: true,
+          child: DropdownButton(
+            value: _zoneDropDownValue,
+            isExpanded: true,
+            underline: Container(
+              color: Colors.grey.shade200,
             ),
-          );
-        }).toList(),
-        onChanged: (newValue){
-          setState(() {
-            _dropDownValue = newValue.toString();
-            print(_dropDownValue);
-          });
-        },
+            borderRadius: BorderRadius.circular(10),
+            icon: Container(
+                padding: EdgeInsets.only(left: 10),
+                child: Icon(Icons.keyboard_arrow_down)),
+            items: zonesList.map((String items) {
+              return DropdownMenuItem(
+                value: items,
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                    items,
+                    style: AppStyles().getTitleStyle(
+                        titleWeight: FontWeight.bold,
+                        titleSize: 14,
+                        titleColor: Colors.black),
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (newValue) {
+              setState(() {
+                _zoneDropDownValue = newValue.toString();
+                _zone = _zoneDropDownValue;
+              });
+            },
+          ),
+        ),
       ),
     );
   }
+
+  _buildDropDown() {
+    return Expanded(
+      child: Container(
+        width: 150,
+        height: 45,
+        child: Material(
+          elevation: 5,
+          color: Colors.grey.shade200,
+          borderOnForeground: true,
+          child: DropdownButton(
+            value: _dropDownValue,
+            isExpanded: true,
+            underline: Container(
+              color: Colors.grey.shade200,
+            ),
+            borderRadius: BorderRadius.circular(10),
+            icon: Container(
+                padding: EdgeInsets.only(left: 10),
+                child: Icon(Icons.keyboard_arrow_down)),
+            items: _items.map((String items) {
+              return DropdownMenuItem(
+                value: items,
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                    items,
+                    style: AppStyles().getTitleStyle(
+                        titleWeight: FontWeight.bold,
+                        titleSize: 14,
+                        titleColor: Colors.black),
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (newValue) {
+              setState(() {
+                _dropDownValue = newValue.toString();
+                print(_dropDownValue);
+              });
+            },
+          ),
+        ),
+      ),
+    );
+  }
+  //
+  // _buildDropDown() {
+  //   return Container(
+  //     width: 200,
+  //     height: 45,
+  //     child: Material(
+  //       elevation: 5,
+  //       color: Colors.grey.shade200,
+  //       borderOnForeground: true,
+  //       child: DropdownButton(
+  //         value: _dropDownValue,
+  //         isExpanded: true,
+  //         underline: Container(
+  //           color: Colors.grey.shade200,
+  //         ),
+  //         borderRadius: BorderRadius.circular(10),
+  //         icon: Container(
+  //             padding: EdgeInsets.only(left: 10),
+  //             child: Icon(Icons.keyboard_arrow_down)),
+  //         items: _items.map((String items){
+  //           return DropdownMenuItem(
+  //             value: items,
+  //             child: Text(
+  //               items,
+  //               style: AppStyles().getTitleStyle(titleWeight: FontWeight.bold,titleSize: 14,titleColor: Colors.black),
+  //             ),
+  //           );
+  //         }).toList(),
+  //         onChanged: (newValue){
+  //           setState(() {
+  //             _dropDownValue = newValue.toString();
+  //             print(_dropDownValue);
+  //           });
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 
   _buildCreateAdminUserButton() {
     return Row(
@@ -373,16 +537,16 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
           String type = 't';
           if(_dropDownValue == 'Coordinator'){
             type = 'c';
-            _services.createAdminUser(_emailId, _password, type)
+            _services.createAdminUser(_emailId, _password, type, _zone)
                 .whenComplete(() => _services.createCoordinator(_emailId, _password)).whenComplete(() => resetFields());
           }else if(_dropDownValue == 'Zone Coordinator'){
             type = 'zc';
-            _services.createAdminUser(_emailId, _password, type)
+            _services.createAdminUser(_emailId, _password, type, _zone)
                 .whenComplete(() => _services.createZoneCoordinator(_emailId, _password)).whenComplete(() => resetFields());
 
           }else if(_dropDownValue == 'Teacher'){
             type = 't';
-            _services.createAdminUser(_emailId, _password, type)
+            _services.createAdminUser(_emailId, _password, type, _zone)
                 .whenComplete(() => _services.createTeacher(_emailId, _password)).whenComplete(() => resetFields());
           }
 
@@ -453,6 +617,7 @@ class _CreateUserCardWidgetState extends State<CreateUserCardWidget> {
       _password ='';
       _isLoading = false;
       _dropDownValue = 'Teacher';
+      _zoneDropDownValue = zonesList[0];
     });
   }
 }

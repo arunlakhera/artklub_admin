@@ -35,9 +35,7 @@ class _AdminUsersListState extends State<AdminUsersList> {
   Widget build(BuildContext context) {
     return isLoading ? Center(child: CircularProgressIndicator()) :
     Column(
-
       children: [
-
         Align(
           alignment: Alignment.centerRight,
           child: Container(
@@ -178,6 +176,7 @@ class _AdminUsersListState extends State<AdminUsersList> {
                           },);
                         },
                       ),
+
                     ],
                     rows: _adminUsersList(snapshot.data!.docs),
                   );
@@ -203,11 +202,11 @@ class _AdminUsersListState extends State<AdminUsersList> {
       case 't':
         type = 'Teacher';
         break;
-      case 'c':
-        type = 'Coordinator';
+      case 'zm':
+        type = 'Zone Manager';
         break;
-      case 'zc':
-        type = 'Zone Coordinator';
+      case 'zh':
+        type = 'Zone Head';
         break;
       case 'a':
         type = 'Super Admin';

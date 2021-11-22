@@ -1,5 +1,4 @@
-
-import 'package:artklub_admin/pages/coordinators/widgets/EditCoordinatorCardWidget.dart';
+import 'package:artklub_admin/pages/zonemanager/widgets/EditZoneManagerCardWidget.dart';
 import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
@@ -8,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-class CoordinatorsList extends StatefulWidget {
-  const CoordinatorsList({Key? key}) : super(key: key);
+class ZoneManagersList extends StatefulWidget {
+  const ZoneManagersList({Key? key}) : super(key: key);
 
   @override
-  _CoordinatorsListState createState() => _CoordinatorsListState();
+  _ZoneManagersListState createState() => _ZoneManagersListState();
 }
 
-class _CoordinatorsListState extends State<CoordinatorsList> {
+class _ZoneManagersListState extends State<ZoneManagersList> {
 
   final ScrollController _firstController = ScrollController();
 
@@ -344,7 +343,7 @@ class _CoordinatorsListState extends State<CoordinatorsList> {
           splashRadius: 20,
           onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context){
-              return EditCoordinatorCardWidget(emailId: emailId,);
+              return EditZoneManagerCardWidget(emailId: emailId,);
             }));
           },
         )

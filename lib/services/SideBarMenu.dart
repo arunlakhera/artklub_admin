@@ -2,7 +2,6 @@ import 'package:artklub_admin/pages/HomePage.dart';
 import 'package:artklub_admin/pages/adminusers/AdminUsersPage.dart';
 import 'package:artklub_admin/pages/assignments/AssignmentsPage.dart';
 import 'package:artklub_admin/pages/batches/BatchesPage.dart';
-import 'package:artklub_admin/pages/coordinators/CoordinatorsPage.dart';
 import 'package:artklub_admin/pages/courses/CoursesPage.dart';
 import 'package:artklub_admin/pages/dashboard/DashboardPage.dart';
 import 'package:artklub_admin/pages/joinrequests/JoinRequestsPage.dart';
@@ -11,6 +10,8 @@ import 'package:artklub_admin/pages/payments/PaymentsPage.dart';
 import 'package:artklub_admin/pages/reports/ReportsPage.dart';
 import 'package:artklub_admin/pages/students/StudentsPage.dart';
 import 'package:artklub_admin/pages/teachers/TeachersPage.dart';
+import 'package:artklub_admin/pages/zonehead/ZoneHeadPage.dart';
+import 'package:artklub_admin/pages/zonemanager/ZoneManagerPage.dart';
 import 'package:artklub_admin/pages/zones/ZonesPage.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:flutter/material.dart';
@@ -40,20 +41,26 @@ class SideBarWidget{
           route: DashboardPage.id,
           icon: Icons.dashboard,
         ),
-        MenuItem(
-          title: 'Courses',
-          route: CoursesPage.id,
-          icon: Icons.art_track,
-        ),
+
         MenuItem(
           title: 'Zones',
           route: ZonesPage.id,
           icon: Icons.location_pin,
         ),
         MenuItem(
-          title: 'Coordinators',
-          route: CoordinatorsPage.id,
+          title: 'Courses',
+          route: CoursesPage.id,
+          icon: Icons.art_track,
+        ),
+        MenuItem(
+          title: 'Zone Managers',
+          route: ZoneManagerPage.id,
           icon: Icons.person,
+        ),
+        MenuItem(
+          title: 'Zone Head',
+          route: ZoneHeadPage.id,
+          icon: Icons.supervised_user_circle,
         ),
         MenuItem(
           title: 'Join Requests',

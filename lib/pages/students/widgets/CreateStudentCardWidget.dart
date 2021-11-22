@@ -1,5 +1,5 @@
 import 'package:artklub_admin/model/DroppedFile.dart';
-import 'package:artklub_admin/pages/coordinators/widgets/CreateCoordinatorCardWidget.dart';
+import 'package:artklub_admin/pages/zonemanager/widgets/CreateZoneManagerCardWidget.dart';
 import 'package:artklub_admin/services/firebase_services.dart';
 import 'package:artklub_admin/utilities/AppColors.dart';
 import 'package:artklub_admin/utilities/AppStyles.dart';
